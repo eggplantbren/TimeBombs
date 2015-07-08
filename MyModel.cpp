@@ -200,7 +200,7 @@ double MyModel::logLikelihood() const
 
 void MyModel::print(std::ostream& out) const
 {
-	out<<background<<' ';
+	out<<background<<' '<<time_delay<<' '<<mag_ratio<<' ';
 	spikes.print(out);
 
 	for(size_t i=0; i<mu.size(); i++)
