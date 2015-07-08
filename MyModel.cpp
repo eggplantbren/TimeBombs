@@ -27,12 +27,12 @@
 using namespace std;
 using namespace DNest3;
 
-const Data& MyModel::data = Data::get_instance();
+const Data& MyModel::data = data;
 
 MyModel::MyModel()
 //:spikes(4, 100, false, ClassicMassInf1D(data.get_t_min(), data.get_t_max(),
 //				1E-3*data.get_y_mean(), 1E3*data.get_y_mean()))
-:spikes(4, 100, false, GaussPrior3D(data.get_t_min(), data.get_t_max()))
+:spikes(4, 100, false, GaussPrior3D(data.get_t_min() - 0.1*data.get_t_range(), data.get_t_max()))
 ,noise_normals(data.get_t().size())
 ,mu(data.get_t().size())
 {
@@ -168,13 +168,13 @@ void MyModel::fromPrior()
 	background = tan(M_PI*(0.97*randomU() - 0.485));
 	background = exp(background);
 
-	time_delay = exp(log(1E-3*Data::get_instance().get_t_range()) + log(1E3)*randomU());
+	time_delay = exp(log(1E-3*data.get_t_range()) + log(1E3)*randomU());
 	mag_ratio = exp(3.*randn());
 
 	spikes.fromPrior();
 
 	noise_sigma = exp(log(1E-3) + log(1E3)*randomU());
-	noise_L = exp(log(1E-2*Data::get_instance().get_t_range())
+	noise_L = exp(log(1E-2*data.get_t_range())
 			+ log(1E3)*randomU());
 	calculate_mu();
 }
@@ -203,8 +203,8 @@ double MyModel::perturb()
 			time_delay = log(time_delay);
 			time_delay += log(1E3)*randh();
 			wrap(time_delay,
-				log(1E-3*Data::get_instance().get_t_range()),
-				log(Data::get_instance().get_t_range()));
+				log(1E-3*data.get_t_range()),
+				log(data.get_t_range()));
 			time_delay = exp(time_delay);
 		}
 		else if(which == 2)
@@ -226,7 +226,7 @@ double MyModel::perturb()
 		{
 			noise_L = log(noise_L);
 			noise_L += log(1E3)*randh();
-			wrap(noise_L, log(1E-2*Data::get_instance().get_t_range()), log(10.*Data::get_instance().get_t_range()));
+			wrap(noise_L, log(1E-2*data.get_t_range()), log(10.*data.get_t_range()));
 			noise_L = exp(noise_L);
 		}
 	}
