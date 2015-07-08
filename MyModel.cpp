@@ -59,6 +59,7 @@ void MyModel::calculate_mu()
 	double amplitude, duration, skew, tc;
 	double rise, fall;
 
+	// First, the non-delayed signal
 	for(size_t j=0; j<components.size(); j++)
 	{
 		tc = components[j][0];
@@ -97,11 +98,52 @@ void MyModel::calculate_mu()
 						(1. -
 						 exp((tc - t_right[i])/fall));
 			}
-//			exparg = -fabs(t[i] - components[j][0])/scale;
-//			if(exparg > -10.)
-//				mu[i] += amplitude*exp(exparg);
 		}
 	}
+
+	// Now, the delayed signal
+	for(size_t j=0; j<components.size(); j++)
+	{
+		tc = components[j][0] + time_delay;
+		amplitude = mag_ratio*exp(components[j][1]);
+		duration = exp(components[j][2]);
+		skew = exp(components[j][3]);
+
+		rise = duration/(1. + skew);
+		fall = rise*skew;
+
+		for(size_t i=0; i<mu.size(); i++)
+		{
+			if(tc <= t_left[i])
+			{
+				// Bin to the right of peak
+				mu[i] += amplitude*fall/data.get_dt()*
+						(exp((tc - t_left[i])/fall) -
+						 exp((tc - t_right[i])/fall));
+			}
+			else if(tc >= t_right[i])
+			{
+				// Bin to the left of peak
+				mu[i] += -amplitude*rise/data.get_dt()*
+						(exp((t_left[i] - tc)/rise) -
+						 exp((t_right[i] - tc)/rise));
+			}
+			else
+			{
+				// Part to the left
+				mu[i] += -amplitude*rise/data.get_dt()*
+						(exp((t_left[i] - tc)/rise) -
+						 1.);
+
+				// Part to the right
+				mu[i] += amplitude*fall/data.get_dt()*
+						(1. -
+						 exp((tc - t_right[i])/fall));
+			}
+		}
+	}
+
+
 
 	// Compute the OU process
 	vector<double> y(mu.size());
