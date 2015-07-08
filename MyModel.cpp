@@ -27,7 +27,7 @@
 using namespace std;
 using namespace DNest3;
 
-const Data& MyModel::data = data;
+const Data& MyModel::data = Data::get_instance();
 
 MyModel::MyModel()
 //:spikes(4, 100, false, ClassicMassInf1D(data.get_t_min(), data.get_t_max(),
