@@ -28,10 +28,20 @@
 
 \section{Model description}
 
-The conditional prior for the data given the parameters\footnote{Conventionally:
-sampling distribution, likelihood.} is Poisson,
+The conditional prior for the data (the photon counts $\{y_i, ..., y_n\}$)
+given the parameters\footnote{Conventionally:
+sampling distribution, likelihood.} $\boldsymbol{\theta}$ is Poisson,
 where the parameters (including the time delay $\tau$)
-determine the Poisson rate for each time bin.
+determine the Poisson rate for each time bin:
+\begin{eqnarray}
+p(y_i | \boldsymbol{\theta}) \sim \textnormal{Poisson}
+\left(
+\lambda_i(\boldsymbol{\theta})
+\right).
+\end{eqnarray}
+
+
+
 At infinite time resolution, the Poisson intensity is a sum of a constant
 background level $b$ and $N$ asymmetric biexponential basis functions or
 ``spikes''. Without any time delay (i.e. if the source were not lensed),
@@ -53,11 +63,14 @@ When observed over a time interval from $t_i - h/2$ to $t_i + h/2$ (where
 $h$ is the bin width and $t_i$ the time of the bin centre), the expected
 number of photons (given the parameters) is:
 \begin{eqnarray}
-\lambda_i &=& K_i(\boldsymbol{\beta})\int_{t_i - h/2}^{t_i + h/2} \mu(t) \, dt
+\lambda_i &=& K_i(\boldsymbol{\beta})\int_{t_i - h/2}^{t_i + h/2} \mu(t) \, dt.
 \end{eqnarray}
 The coefficient $K_i(\boldsymbol{\beta})$ is an ``extra noise'' factor, which
 depends on parameters $\boldsymbol{\beta}$, designed to account for variability
-that may exist but is not naturally explained by the spike model.
+that may exist but is not naturally explained by the spike model. This
+variability is folded in {\it after} the time delay which occurs in the
+calculation of $\mu(t)$, and therefore only the spike components appear in
+both images.
 
 \bibliographystyle{plainnat}
 \bibliography{references}{}
