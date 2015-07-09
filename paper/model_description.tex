@@ -6,6 +6,7 @@
 \usepackage{natbib}   % This allows for relatively pain-free reference lists
 \usepackage[left=3cm,top=3cm,right=3cm]{geometry} % The way I like the margins
 \usepackage{dsfont}
+\usepackage{amsmath}
 
 % This helps with figure placement
 \renewcommand{\topfraction}{0.85}
@@ -27,11 +28,36 @@
 
 \section{Model description}
 
-The conditional prior for the data given the parameters is Poisson,
-where the parameters determine the Poisson rate for each time bin.
+The conditional prior for the data given the parameters\footnote{Conventionally:
+sampling distribution, likelihood.} is Poisson,
+where the parameters (including the time delay $\tau$)
+determine the Poisson rate for each time bin.
+At infinite time resolution, the Poisson intensity is a sum of a constant
+background level $b$ and $N$ asymmetric biexponential basis functions or
+``spikes''. Without any time delay (i.e. if the source were not lensed),
+the Poisson intensity would be:
 
+\begin{eqnarray}
+\mu_0(t) &=& b + \sum_{i=1}^N A_i f(t; \boldsymbol{\theta}_i)
+\end{eqnarray}
+where $\boldsymbol{\theta}_i$ is the parameter vector for spike $i$.
+With a doubly-imaged system, the non-constant part of the signal appears
+again but delayed by $\tau$, the time delay of the system, and scaled by
+a constant $C$, the magnification ratio of the two images:
+\begin{eqnarray}
+\mu(t) &=& b + \sum_{i=1}^N A_i f(t; \boldsymbol{\theta}_i) +
+C\sum_{i=1}^N A_i f(t - \tau; \boldsymbol{\theta}_i)
+\end{eqnarray}
 
-
+When observed over a time interval from $t_i - h/2$ to $t_i + h/2$ (where
+$h$ is the bin width and $t_i$ the time of the bin centre), the expected
+number of photons (given the parameters) is:
+\begin{eqnarray}
+\lambda_i &=& K_i(\boldsymbol{\beta})\int_{t_i - h/2}^{t_i + h/2} \mu(t) \, dt
+\end{eqnarray}
+The coefficient $K_i(\boldsymbol{\beta})$ is an ``extra noise'' factor, which
+depends on parameters $\boldsymbol{\beta}$, designed to account for variability
+that may exist but is not naturally explained by the spike model.
 
 \bibliographystyle{plainnat}
 \bibliography{references}{}
