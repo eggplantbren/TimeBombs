@@ -72,6 +72,18 @@ variability is folded in {\it after} the time delay which occurs in the
 calculation of $\mu(t)$, and therefore only the spike components appear in
 both images.
 
+\section{The Spike Shape}
+A spike centered at time $t=t_c$ with amplitude $A$, characteristic timescale
+(rise time) $L$ and asymmetry parameter $s$ has the following shape:
+\begin{eqnarray}
+f(t) &=& \left\{
+\begin{array}{lr}
+A\exp\left(\frac{t - t_c}{L}\right), & t < t_c\\
+A\exp\left(\frac{-(t - t_c)}{sL}\right), & t \geq t_c
+\end{array}
+\right.
+\end{eqnarray}
+
 \bibliographystyle{plainnat}
 \bibliography{references}{}
 
