@@ -1,0 +1,41 @@
+% Every Latex document starts with a documentclass command
+\documentclass[a4paper, 11pt]{article}
+
+% Load some packages
+\usepackage{graphicx} % This allows you to put figures in
+\usepackage{natbib}   % This allows for relatively pain-free reference lists
+\usepackage[left=3cm,top=3cm,right=3cm]{geometry} % The way I like the margins
+\usepackage{dsfont}
+
+% This helps with figure placement
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\textfraction}{0.1}
+\parindent=0cm
+
+% Set values so you can have a title
+\title{}
+\author{}
+\date{\today}
+
+% Document starts here
+\begin{document}
+
+% Actually put the title in
+\maketitle
+
+%\abstract{This is the abstract}
+
+\section{Model description}
+
+The conditional prior for the data given the parameters is Poisson,
+where the parameters determine the Poisson rate for each time bin.
+
+
+
+
+\bibliographystyle{plainnat}
+\bibliography{references}{}
+
+
+\end{document}
+
