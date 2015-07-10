@@ -145,22 +145,22 @@ void MyModel::calculate_mu()
 
 
 
-	// Compute the OU process
-	vector<double> y(mu.size());
-	double alpha = exp(-1./noise_L);
-	// y[i+1] = a*y[i] + sigma*n[i]
-	// S^2 = a^2 S^2 + sigma^2
-	// S^2 = sigma^2/(1 - a^2)
-	// S = sigma/sqrt(1 - a^2)
+//	// Compute the OU process
+//	vector<double> y(mu.size());
+//	double alpha = exp(-1./noise_L);
+//	// y[i+1] = a*y[i] + sigma*n[i]
+//	// S^2 = a^2 S^2 + sigma^2
+//	// S^2 = sigma^2/(1 - a^2)
+//	// S = sigma/sqrt(1 - a^2)
 
-	for(size_t i=0; i<mu.size(); i++)
-	{
-		if(i==0)
-			y[i] = noise_sigma/sqrt(1. - alpha*alpha)*noise_normals[i];
-		else
-			y[i] = alpha*y[i-1] + noise_sigma*noise_normals[i];
-		mu[i] *= exp(y[i]);
-	}
+//	for(size_t i=0; i<mu.size(); i++)
+//	{
+//		if(i==0)
+//			y[i] = noise_sigma/sqrt(1. - alpha*alpha)*noise_normals[i];
+//		else
+//			y[i] = alpha*y[i-1] + noise_sigma*noise_normals[i];
+//		mu[i] *= exp(y[i]);
+//	}
 }
 
 void MyModel::fromPrior()
@@ -173,9 +173,9 @@ void MyModel::fromPrior()
 
 	spikes.fromPrior();
 
-	noise_sigma = exp(log(1E-3) + log(1E3)*randomU());
-	noise_L = exp(log(1E-2*data.get_t_range())
-			+ log(1E3)*randomU());
+//	noise_sigma = exp(log(1E-3) + log(1E3)*randomU());
+//	noise_L = exp(log(1E-2*data.get_t_range())
+//			+ log(1E3)*randomU());
 	calculate_mu();
 }
 
@@ -188,7 +188,7 @@ double MyModel::perturb()
 	// Single parameters
 	if(randomU() <= 0.5)
 	{
-		which = randInt(5);
+		which = randInt(3);
 		if(which == 0)
 		{
 			background = log(background);
@@ -215,36 +215,36 @@ double MyModel::perturb()
 			logH += -0.5*pow(mag_ratio/3., 2);
 			mag_ratio = exp(mag_ratio);
 		}
-		else if(which == 3)
-		{
-			noise_sigma = log(noise_sigma);
-			noise_sigma += log(1E3)*randh();
-			wrap(noise_sigma, log(1E-3), log(1.));
-			noise_sigma = exp(noise_sigma);
-		}
-		else
-		{
-			noise_L = log(noise_L);
-			noise_L += log(1E3)*randh();
-			wrap(noise_L, log(1E-2*data.get_t_range()), log(10.*data.get_t_range()));
-			noise_L = exp(noise_L);
-		}
+//		else if(which == 3)
+//		{
+//			noise_sigma = log(noise_sigma);
+//			noise_sigma += log(1E3)*randh();
+//			wrap(noise_sigma, log(1E-3), log(1.));
+//			noise_sigma = exp(noise_sigma);
+//		}
+//		else
+//		{
+//			noise_L = log(noise_L);
+//			noise_L += log(1E3)*randh();
+//			wrap(noise_L, log(1E-2*data.get_t_range()), log(10.*data.get_t_range()));
+//			noise_L = exp(noise_L);
+//		}
 	}
 	else
 	{
 		// Compound parameters
-		which = randInt(2);
+		which = 0;//randInt(2);
 		if(which == 0)
 			logH += spikes.perturb();
-		else
-		{
-			int num = exp(log((double)noise_normals.size())*randomU());
-			for(int i=0; i<num; i++)
-			{
-				int k = randInt(noise_normals.size());
-				noise_normals[k] = randn();
-			}
-		}
+//		else
+//		{
+//			int num = exp(log((double)noise_normals.size())*randomU());
+//			for(int i=0; i<num; i++)
+//			{
+//				int k = randInt(noise_normals.size());
+//				noise_normals[k] = randn();
+//			}
+//		}
 	}
 
 	calculate_mu();
