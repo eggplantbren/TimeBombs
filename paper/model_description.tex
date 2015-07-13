@@ -26,11 +26,12 @@
 
 %\abstract{This is the abstract}
 
-\section{Model description}
+\section{Model assumptions}
 
+\subsection{Conditional prior for the data}
 The conditional prior for the data (the photon counts $\{y_i, ..., y_n\}$)
 given the parameters\footnote{Conventionally:
-sampling distribution, likelihood.} $\boldsymbol{\theta}$ is Poisson,
+the sampling distribution or likelihood.} $\boldsymbol{\theta}$ is Poisson,
 where the parameters (including the time delay $\tau$)
 determine the Poisson rate for each time bin:
 \begin{eqnarray}
@@ -39,8 +40,6 @@ p(y_i | \boldsymbol{\theta}) \sim \textnormal{Poisson}
 \lambda_i(\boldsymbol{\theta})
 \right).
 \end{eqnarray}
-
-
 
 At infinite time resolution, the Poisson intensity is a sum of a constant
 background level $b$ and $N$ asymmetric biexponential basis functions or
@@ -66,7 +65,7 @@ number of photons (given the parameters) is:
 \lambda_i &=& \int_{t_i - h/2}^{t_i + h/2} \mu(t) \, dt.\label{eq:bin_integral}
 \end{eqnarray}
 
-\section{The Spike Shape}
+\subsection{The Spike Shape}
 A spike centered at time $t=t_c$ with amplitude $A$, characteristic timescale
 (rise time) $L$ and asymmetry parameter $s$ has the following shape:
 \begin{eqnarray}
@@ -82,6 +81,32 @@ $\boldsymbol{\theta}_i = \{A_i, t_c^i, L_i, s_i\}$. One advantage of this
 choice of spike shape is that definite integrals (which are needed to compute
 the likelihood, because of Equation~\ref{eq:bin_integral} of $f(t)$ are
 available analytically.
+
+\subsection{Priors}
+The model is parameterised in its entirety by the following parameters:
+\begin{eqnarray}
+\left\{
+N, \tau, b, \{\boldsymbol{\theta}_i\}_{i=1}^N
+\right\}.
+\end{eqnarray}
+We must specify prior distributions for all of these parameters. Since the
+number of spikes $N$ may not be small, we will specify the priors for the
+spike parameters hierarchically by introducing hyperparameters
+denoted collectively by $\boldsymbol{\alpha}$.
+We allow $N$ to be any integer from 0 to 100 inclusive, so
+the parameter space has 3 -- 403 dimensions. The prior distributions are
+specified below.
+
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular}{cc}
+\hline
+Parameter			&		Prior\\
+\hline
+
+\end{tabular}
+\end{center}
+\end{table}
 
 \bibliographystyle{plainnat}
 \bibliography{references}{}
