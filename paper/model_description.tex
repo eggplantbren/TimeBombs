@@ -65,7 +65,7 @@ number of photons (given the parameters) is:
 \lambda_i &=& \int_{t_i - h/2}^{t_i + h/2} \mu(t) \, dt.\label{eq:bin_integral}
 \end{eqnarray}
 
-\subsection{The Spike Shape}
+\subsubsection{The Spike Shape}
 A spike centered at time $t=t_c$ with amplitude $A$, characteristic timescale
 (rise time) $L$ and asymmetry parameter $s$ has the following shape:
 \begin{eqnarray}
@@ -92,9 +92,9 @@ N, \tau, b, \{\boldsymbol{\theta}_i\}_{i=1}^N
 We must specify prior distributions for all of these parameters. Since the
 number of spikes $N$ may not be small, we will specify the priors for the
 spike parameters hierarchically by introducing hyperparameters
-denoted collectively by $\boldsymbol{\alpha}$.
+denoted collectively by $\boldsymbol{\alpha}$, of which there will be nine.
 We allow $N$ to be any integer from 0 to 100 inclusive, so
-the parameter space has 3 -- 403 dimensions. The prior distributions are
+the parameter space has 12 -- 412 dimensions. The prior distributions are
 specified below.
 
 \begin{table}[!ht]
