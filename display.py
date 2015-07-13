@@ -15,14 +15,14 @@ for i in xrange(0, posterior_sample.shape[0]):
 ioff()
 show()
 
-hist(posterior_sample[:,11], 20)
+hist(posterior_sample[:,14], 20)
 xlabel('Number of Bursts')
 show()
 
-pos = posterior_sample[:, 12:112]
+pos = posterior_sample[:, 15:115]
 pos = pos[pos != 0.]
-hist(pos, 1000)
+hist(pos, 100)
 xlabel('Time')
-title('Positions of Bursts')
+title('Positions of Spikes')
 show()
 
