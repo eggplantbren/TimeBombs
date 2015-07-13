@@ -21,7 +21,6 @@ show()
 
 pos = posterior_sample[:, 15:115]
 pos = pos[pos != 0.]
-print(pos)
 hist(pos, 100)
 xlabel('Time')
 title('Positions of Spikes')
