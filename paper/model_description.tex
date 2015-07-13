@@ -48,22 +48,22 @@ background level $b$ and $N$ asymmetric biexponential basis functions or
 the Poisson intensity would be:
 
 \begin{eqnarray}
-\mu_0(t) &=& b + \sum_{i=1}^N A_i f(t; \boldsymbol{\theta}_i)
+\mu_0(t) &=& b + \sum_{i=1}^N f(t; \boldsymbol{\theta}_i)
 \end{eqnarray}
 where $\boldsymbol{\theta}_i$ is the parameter vector for spike $i$.
 With a doubly-imaged system, the non-constant part of the signal appears
 again but delayed by $\tau$, the time delay of the system, and scaled by
 a constant $C$, the magnification ratio of the two images:
 \begin{eqnarray}
-\mu(t) &=& b + \sum_{i=1}^N A_i f(t; \boldsymbol{\theta}_i) +
-C\sum_{i=1}^N A_i f(t - \tau; \boldsymbol{\theta}_i)
+\mu(t) &=& b + \sum_{i=1}^N f(t; \boldsymbol{\theta}_i) +
+C\sum_{i=1}^N f(t - \tau; \boldsymbol{\theta}_i)
 \end{eqnarray}
 
 When observed over a time interval from $t_i - h/2$ to $t_i + h/2$ (where
 $h$ is the bin width and $t_i$ the time of the bin centre), the expected
 number of photons (given the parameters) is:
 \begin{eqnarray}
-\lambda_i &=& \int_{t_i - h/2}^{t_i + h/2} \mu(t) \, dt.
+\lambda_i &=& \int_{t_i - h/2}^{t_i + h/2} \mu(t) \, dt.\label{eq:bin_integral}
 \end{eqnarray}
 
 \section{The Spike Shape}
@@ -77,6 +77,11 @@ A\exp\left(\frac{-(t - t_c)}{sL}\right), & t \geq t_c
 \end{array}
 \right.
 \end{eqnarray}
+Therefore the parameter vector of a spike is
+$\boldsymbol{\theta}_i = \{A_i, t_c^i, L_i, s_i\}$. One advantage of this
+choice of spike shape is that definite integrals (which are needed to compute
+the likelihood, because of Equation~\ref{eq:bin_integral} of $f(t)$ are
+available analytically.
 
 \bibliographystyle{plainnat}
 \bibliography{references}{}
