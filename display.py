@@ -16,7 +16,7 @@ ioff()
 show()
 
 hist(posterior_sample[:,14], 20)
-xlabel('Number of Bursts')
+xlabel('Number of Spikes')
 show()
 
 pos = posterior_sample[:, 15:115]
