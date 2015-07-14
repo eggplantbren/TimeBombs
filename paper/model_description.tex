@@ -83,7 +83,7 @@ the likelihood, because of Equation~\ref{eq:bin_integral} of $f(t)$ are
 available analytically.
 
 \subsection{Priors}
-The model is parameterised in its entirety by the following parameters:
+The model is parameterised by the following parameters:
 \begin{eqnarray}
 \left\{
 N, \tau, b, \{\boldsymbol{\theta}_i\}_{i=1}^N
@@ -99,11 +99,30 @@ specified below.
 
 \begin{table}[!ht]
 \begin{center}
-\begin{tabular}{cc}
+\begin{tabular}{|l|l|}
 \hline
 Parameter			&		Prior\\
 \hline
-
+$N$					&		$U(\{0, 1, 2, ..., 100\})$\\
+\hline
+{\bf Hyperparameters}	&	\\
+\hline
+$\mu_A$				&		$\mathcal{N}(0, 5^2)$\\
+$\mu_L$				&		$U(-10, 1.5)$\\
+$\mu_s$				&		$U(-5, 5)$\\
+$c_A$				&		$U(-10, 10)$\\
+$c_L$				&		$U(-10, 10)$\\
+$c_s$				&		$U(-10, 10)$\\
+$\sigma_A$			&		$p\left(\ln(\sigma_A)\right) \sim \mathcal{N}(0, 1)$\\
+$\sigma_L$			&		$p\left(\ln(\sigma_L)\right) \sim \mathcal{N}(0, 1)$\\
+$\sigma_s$			&		$p\left(\ln(\sigma_s)\right) \sim \mathcal{N}(0, 1)$\\
+\hline
+{\bf Spike parameters}	&	\\
+\hline
+$A_i$				&	$p(\ln(A_i))\sim\mathcal{N}\left(\right)$\\
+$L_i$				&		\\
+$s_i$				&	\\
+$t_c^i$				&	\\
 \end{tabular}
 \end{center}
 \end{table}
