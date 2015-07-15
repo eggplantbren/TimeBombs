@@ -35,7 +35,7 @@ the sampling distribution or likelihood.} $\boldsymbol{\theta}$ is Poisson,
 where the parameters (including the time delay $\tau$)
 determine the Poisson rate for each time bin:
 \begin{eqnarray}
-p(y_i | \boldsymbol{\theta}) \sim \textnormal{Poisson}
+y_i | \boldsymbol{\theta} \sim \textnormal{Poisson}
 \left(
 \lambda_i(\boldsymbol{\theta})
 \right).
@@ -107,22 +107,23 @@ $N$					&		$U(\{0, 1, 2, ..., 100\})$\\
 \hline
 {\bf Hyperparameters}	&	\\
 \hline
-$\mu_A$				&		$p(\ln(\mu_A))\sim\textnormal{Cauchy}(0, 1)T(-21.3, 21.3)$\\
+$\mu_A$				&		$\ln(\mu_A)\sim\textnormal{Cauchy}(0, 1)T(-21.3, 21.3)$\\
 $\mu_L$				&		$U(-10, 10)$\\
 $\mu_s$				&		$U(-10, 10)$\\
-$c_A$				&		$U(-10, 10)$\\
-$c_L$				&		$U(-10, 10)$\\
-$c_s$				&		$U(-10, 10)$\\
-$\sigma_A$			&		$p\left(\ln(\sigma_A)\right) \sim \mathcal{N}(0, 1)$\\
-$\sigma_L$			&		$p\left(\ln(\sigma_L)\right) \sim \mathcal{N}(0, 1)$\\
-$\sigma_s$			&		$p\left(\ln(\sigma_s)\right) \sim \mathcal{N}(0, 1)$\\
+$c_1$				&		$U(-10, 10)$\\
+$c_2$				&		$U(-10, 10)$\\
+$c_3$				&		$U(-10, 10)$\\
+$\sigma_A$			&		$\ln(\sigma_A) \sim \mathcal{N}(0, 1)$\\
+$\sigma_L$			&		$\ln(\sigma_L) \sim \mathcal{N}(0, 1)$\\
+$\sigma_s$			&		$\ln(\sigma_s) \sim \mathcal{N}(0, 1)$\\
 \hline
 {\bf Spike parameters}	&	\\
 \hline
-$A_i$				&	$p(\ln(A_i))\sim\mathcal{N}\left(\right)$\\
-$L_i$				&		\\
-$s_i$				&	\\
-$t_c^i$				&	\\
+$A_i$				&	$\ln(A_i)\sim\mathcal{N}\left(\mu_A, \sigma_A^2\right)$\\
+$L_i$				&	$\ln(L_i)\sim\mathcal{N}\left(\mu_L + c_1\ln(A_i), \sigma_L^2\right)$	\\
+$s_i$				&	$\ln(L_i)\sim\mathcal{N}\left(\mu_s + c_2\ln(A_i) + c_3\ln(L_i), \sigma_s^2\right)$\\
+$t_c^i$				&	$U(t_{\rm min} - 0.1t_{\rm range}, t_{\rm max})$\\
+\hline
 \end{tabular}
 \end{center}
 \end{table}
